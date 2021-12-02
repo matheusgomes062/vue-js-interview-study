@@ -1,15 +1,46 @@
-name: Build Vue
-on: [push]
-jobs:
-  build_vue:
-    runs-on: ubuntu-latest
-    name: Build Vue
-    steps:
-    - name: Vue to Github Pages
-    - id: Build-Vue
-      uses: xRealNeon/VuePagesAction@1.0.1
+# 该 Workflow name, you can fill in casually
+name:
+  Build And Deploy To Github Pages
 
-      with:
-        username: 'matheusgomes062'
-        reponame: 'vue-js-interview-study'
-        token: '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'
+  # wFlow's trigger event, which is triggered here on the Push event of the main branch.
+on:
+  push:
+    branches: [main]
+
+  # Task
+jobs:
+  # build-and-deploy as the ID of the task
+  build-and-deploy:
+    # 运 运 所 环境
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步 名
+      - name:
+          Checkout
+          # Use the ActionS script, here is the official source code script
+        uses:
+          actions/checkout@v2.3.1
+          # This is the configuration you need to use the jamesives / github-pages-deploy-action script.
+        with:
+          persist-credentials:
+            false
+
+            # Execute npm script package items
+      - name: Install and Build
+        run: |
+          yarn install
+          yarn run build
+
+             # Execute JAMESIVES / GITHUB-PAGES-Deploy-Action Publish the project to Github Pages
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          # This Workflow needs to operate the REPO, so a key is required, and how to get this key below
+          ACCESS_TOKEN:
+            ${{ secrets.ACCESS_TOKEN }}
+            # 发 到 分
+          BRANCH:
+            gh-pages
+            # To release folders
+          FOLDER: dist
