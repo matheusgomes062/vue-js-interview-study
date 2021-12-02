@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   gh-pages-deploy:
-    name: Deploying to Github Pages
+    - name: Deploying to Github Pages
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
