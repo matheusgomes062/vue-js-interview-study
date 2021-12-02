@@ -12,4 +12,4 @@ jobs:
       with:
         username: 'matheusgomes062'
         reponame: 'vue-js-interview-study'
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: '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'
