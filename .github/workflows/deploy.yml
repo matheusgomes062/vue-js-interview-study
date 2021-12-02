@@ -1,0 +1,43 @@
+# This is a basic workflow to help you build and deploy to github pages
+
+name: deploy
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+        
+      - name: Setting up Node 
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+        
+      - name: Setting up Git Auth 🔑
+        env:
+          email: 'matheusgomes062@gmail.com'
+          username: 'matheusgomes062'
+          access_token: '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'
+        run: |
+          git config --global credential.helper store
+          echo "https://${access_token}:x-oauth-basic@github.com" > ~/.git-credentials
+          git config --global user.email $email
+          git config --global user.name $username
+      
+      ## Build, Commit e deploy do código para o gh-pages
+      - name: Deploying to Github Pages 🎁
+        run: |
+          npm i
+          NODE_ENV=production npm run build
+          cd dist
+          git init
+          git add -A
+          git commit -m "🚀 Deploy id ${GITHUB_RUN_ID}"
+          git push -f "https://github.com/${GITHUB_REPOSITORY}.git" main:gh-pages
