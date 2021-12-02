@@ -56,7 +56,7 @@ v-bind expressions (the latter supported in 2.1.0+).
 <div v-bind:id="rawId | formatId"></div>
 ```
   
-### React x Angular x Vue
+### React x Vue
 **Answer:** There's a few important differences:
   - The modification of a React component state triggers the re-rendering of all of the components in its subtree.
   - In Vue, these dependencies are tracked—so unnecessary re-rendering is prevented.
