@@ -1,3 +1,4 @@
 module.exports = {
-  publicPath: '/vue-js-interview-study/'
+  publicPath:
+    process.env.NODE_ENV === 'production' ? '/vue-js-interview-study/' : '/'
 };
