@@ -35,7 +35,7 @@ jobs:
       - name: Deploying to Github Pages 🎁
         run: |
           npm i
-          NODE_ENV=production npm run build
+          npm run build
           cd dist
           git init
           git add -A
